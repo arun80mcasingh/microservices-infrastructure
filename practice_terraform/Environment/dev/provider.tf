@@ -1,0 +1,25 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = "4.54.0"
+    }
+  }
+
+  backend "azurerm" {
+    resource_group_name  = "backend_rg"
+    storage_account_name = "arunstg"
+    container_name       = "aruncontainer"
+    key                  = "terraform.tfstate"
+    
+  }
+}
+provider "azurerm" {
+  features {
+    key_vault {
+      purge_soft_delete_on_destroy    = true
+      recover_soft_deleted_key_vaults = true
+    }
+  }
+subscription_id = "e68115ea-4d91-49bd-814a-4725aba743a1"
+}
